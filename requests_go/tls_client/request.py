@@ -53,8 +53,8 @@ class Session:
                     raise TLSClientExeption('Proxies必须为{"http": "代理IP", "https": "代理IP"}')
             else:
                 request_params["Proxies"] = proxies
-        if verify:
-            request_params["Verify"] = verify
+        # if verify:
+        #     request_params["Verify"] = verify
         if body:
             if type(body) == str:
                 request_params["Body"] = body

@@ -42,7 +42,7 @@ class TLSAdapter(BaseAdapter):
 			tls_config=tls_config
 		)
 
-	def send(self, request: PreparedRequest, stream=False, timeout=None, verify=True, cert=None, proxies=None) -> Response:
+	def send(self, request: PreparedRequest, stream=False, timeout=None, verify=True, cert=None, proxies=None, allow_redirects=True) -> Response:
 		"""Sends PreparedRequest object using request.TLSRequest. Returns Response object.
 
         Args:
@@ -94,6 +94,7 @@ class TLSAdapter(BaseAdapter):
 						verify=verify,
 						cert=cert,
 						proxies=proxies,
+						allow_redirects=allow_redirects
 					)
 
 					return response
@@ -107,7 +108,7 @@ class TLSAdapter(BaseAdapter):
 		except MaxRetryError as retry_error:
 			raise retry_error.reason
 
-	def _tls_send(self, request: PreparedRequest, stream=False, timeout=None, verify=True, cert=None, proxies=None) -> Response:
+	def _tls_send(self, request: PreparedRequest, stream=False, timeout=None, verify=True, cert=None, proxies=None, allow_redirects=True) -> Response:
 		"""Translates the `requests.PreparedRequest` into a TLSRequest, performs the request, and then
 		translates the repsonse to a `requests.Response`, and if there is any exception, it is also
 		translated into an appropiate `requests.exceptions.RequestException` subclass."""
@@ -120,6 +121,7 @@ class TLSAdapter(BaseAdapter):
 			"timeout": timeout,
 			"proxies": dict(proxies),
 			"body": request.body,
+			"allow_redirects": allow_redirects
 		}
 		if request.method != "GET":
 			content_type = request.headers.get("Content-Type", None)
