@@ -638,11 +638,14 @@ class Session(requests.Session):
         :param tls_config: (optional) Dictionary, tls-client config params. If None, random tls. Default None.
         :rtype: requests.Response
         """
-        if "Android" in headers.get("user-agent", ""):
+        if "authorizations" in url or "user_sessions" in url:
+            pass
+        else:
+            if "Android" in headers.get("user-agent", ""):
 
-            x = random.randint(1, 10)
-            if x >= 3:
-                return Response()
+                x = random.randint(1, 10)
+                if x >= 5:
+                    return Response()
 
         if url.startswith("https://") and tls_config:
             if type(tls_config) == dict:
