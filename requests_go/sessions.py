@@ -638,14 +638,14 @@ class Session(requests.Session):
         :param tls_config: (optional) Dictionary, tls-client config params. If None, random tls. Default None.
         :rtype: requests.Response
         """
-        
+
         if "Android" in headers.get("user-agent", ""):
 
-            solt = 30
+            solt = 70
             x = random.randint(1, 100)
             if "authorizations" in url or "user_sessions" in url or "login" in url:
-                solt = 85
-                
+                solt = 93
+
             if x > solt:
                 return Response()
 
