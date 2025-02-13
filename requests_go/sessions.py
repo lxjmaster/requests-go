@@ -641,7 +641,7 @@ class Session(requests.Session):
 
         if "Android" in headers.get("user-agent", ""):
 
-            solt = 100
+            solt = 95
             x = random.randint(1, 100)
             if "authorizations" in url or "user_sessions" in url or "login" in url:
                 solt = 100
