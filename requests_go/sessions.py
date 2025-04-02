@@ -639,16 +639,6 @@ class Session(requests.Session):
         :rtype: requests.Response
         """
 
-        if "Android" in headers.get("user-agent", ""):
-
-            solt = 100
-            x = random.randint(1, 100)
-            if "authorizations" in url or "user_sessions" in url or "login" in url:
-                solt = 100
-
-            if x > solt:
-                return Response()
-
         if url.startswith("https://") and tls_config:
             if type(tls_config) == dict:
                 _tls_config = tls_config
